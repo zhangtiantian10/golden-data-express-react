@@ -14,15 +14,14 @@ class App extends React.Component {
 
     addForm(type) {
         $.post('/api/forms', {type},( data ) => {
-            this.setState({elements: data},() => {
-                console.log(this.state.elements);
-            });
+            this.setState({elements: data});
         }, "json");
     }
 
     render() {
         return this.props.children && React.cloneElement(this.props.children, {
-                onAdd: this.addForm.bind(this)
+                onAdd: this.addForm.bind(this),
+                elements: this.state.elements
         });
     }
 }
@@ -32,7 +31,7 @@ class Editor extends React.Component {
         return <div>
             <ReactRouter.Link to="/Preview"><button>Preview</button></ReactRouter.Link>
             <RightButton onAdd={this.props.onAdd}/>
-            <LeftPanel/>
+            <LeftPanel elements={this.props.elements}/>
         </div>;
     }
 }
@@ -52,8 +51,15 @@ class RightButton extends React.Component {
 
 class LeftPanel extends React.Component {
     render() {
+        const elements = this.props.elements.map((ele, index) => {
+            return <div key={index}>
+                <input type={ele}/>
+                <button>X</button>
+            </div>;
+        })
+
         return <div>
-            LeftPanel
+            {elements}
         </div>
     }
 }
