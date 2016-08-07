@@ -18,10 +18,23 @@ class App extends React.Component {
         }, "json");
     }
 
+    deleteForm(index){
+        $.ajax({
+            url: '/api/forms',
+            type: 'DELETE',
+            dataType: "json",
+            data: {index: index},
+            success:((elements) => {
+                this.setState({elements});
+            })
+        })
+    }
+
     render() {
         return this.props.children && React.cloneElement(this.props.children, {
                 onAdd: this.addForm.bind(this),
-                elements: this.state.elements
+                elements: this.state.elements,
+                onDelete: this.deleteForm.bind(this)
         });
     }
 }
@@ -31,7 +44,7 @@ class Editor extends React.Component {
         return <div>
             <ReactRouter.Link to="/Preview"><button>Preview</button></ReactRouter.Link>
             <RightButton onAdd={this.props.onAdd}/>
-            <LeftPanel elements={this.props.elements}/>
+            <LeftPanel elements={this.props.elements} onDelete={this.props.onDelete}/>
         </div>;
     }
 }
@@ -50,11 +63,15 @@ class RightButton extends React.Component {
 }
 
 class LeftPanel extends React.Component {
+    deleteForm(index) {
+        this.props.onDelete(index);
+    }
+
     render() {
         const elements = this.props.elements.map((ele, index) => {
             return <div key={index}>
                 <input type={ele}/>
-                <button>X</button>
+                <button onClick={this.deleteForm.bind(this, index)}>X</button>
             </div>;
         })
 

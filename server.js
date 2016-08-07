@@ -20,7 +20,9 @@ app.post('/api/forms', (req, res) => {
 });
 
 app.delete('/api/forms', (req, res) => {
-    res.json(req.body.type);
+    elements.splice(req.body.index, 1);
+
+    res.json(elements);
 })
 
 app.listen(3000, () => {
