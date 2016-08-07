@@ -83,10 +83,16 @@ class LeftPanel extends React.Component {
 
 class Preview extends React.Component {
     render() {
+        const elements = this.props.elements.map((ele, index) => {
+            return <div key={index}>
+                <input type={ele}/>
+            </div>;
+        })
 
         return <div>
             <ReactRouter.Link to="/"><button>Editor</button></ReactRouter.Link>
-            Preview
+            {elements}
+            <button>Sumbit</button>
         </div>
     }
 }
