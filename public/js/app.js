@@ -18,10 +18,23 @@ class App extends React.Component {
         }, "json");
     }
 
+    deleteRequest() {
+            $.ajax({
+                url: '/api/forms',
+                type: 'DELETE',
+                dataType: "json",
+                data: {type: ['success']},
+                success:((elements) => {
+                    this.setState({elements});
+                })
+            })
+    }
+
     render() {
         return <div>
             {this.state.elements}
             <button onClick={this.sumbit.bind(this)}>提交</button>
+            <button onClick={this.deleteRequest.bind(this)}>删除</button>
         </div>
     }
 }

@@ -12,9 +12,12 @@ app.get('/api/forms/:id', (req, res) => {
 });
 
 app.post('/api/forms', (req, res) => {
-    console.log(req.body.elements);
     res.json(req.body.elements);
 });
+
+app.delete('/api/forms', (req, res) => {
+    res.json(req.body.type);
+})
 
 app.listen(3000, () => {
     console.log('Server started.');
