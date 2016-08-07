@@ -4,16 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "browser": "^0.2.6",
     "express": "^4.14.0",
     "jquery": "^3.1.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.0"
   }
 }
